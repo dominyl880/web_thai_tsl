@@ -15,11 +15,79 @@ window.onload = function() {
     const query = urlParams.get('q');
     if (query) {
         document.getElementById('search-input').value = query;
-        // ใส่โค้ดการค้นหาและแสดงผลที่นี่
-        // ตัวอย่างเช่น:
-        const searchResults = document.getElementById('search-results');
-        const resultItem = document.createElement('li');
-        resultItem.textContent = query;
-        searchResults.appendChild(resultItem);
+        
+        const searchResults = document.querySelector('#search-results tbody');
+        
+        // ตัวอย่างผลลัพธ์การค้นหา สามารถปรับเปลี่ยนตามข้อมูลจริง
+        const results = [
+            { name: query },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+            { name: 'ผลลัพธ์ 2' },
+
+            { name: 'ผลลัพธ์ 3' }
+        ];
+        
+        results.forEach(result => {
+            const row = document.createElement('tr');
+            const nameCell = document.createElement('td');
+            const actionsCell = document.createElement('td');
+            const saveButton = document.createElement('button');
+            const detailsButton = document.createElement('button');
+            
+            nameCell.textContent = result.name;
+            
+            saveButton.textContent = 'บันทึกรายการโปรด';
+            saveButton.className = 'save-button';
+            
+            detailsButton.textContent = 'ดูรายละเอียด';
+            detailsButton.className = 'details-button';
+            
+            actionsCell.className = 'actions';
+            actionsCell.appendChild(saveButton);
+            actionsCell.appendChild(detailsButton);
+            
+            row.appendChild(nameCell);
+            row.appendChild(actionsCell);
+            
+            searchResults.appendChild(row);
+        });
     }
 };
