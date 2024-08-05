@@ -1,0 +1,69 @@
+
+
+/* .auth-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+} */
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: transparent;
+}
+ 
+
+h2 {
+    color: #27474e;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.checkbox-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 16px;
+    color: #27474e;
+    margin-bottom: 10px;
+}
+
+
+textarea {
+    width: 95%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    font-size: 16px;
+    background-color: #f0f0f0;
+}
+
+.btn-submit {
+    background-color: #27474e;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-submit:hover {
+    background-color: #1e373e;
+}
