@@ -1,3 +1,4 @@
+/* ที่มีอยู่แล้ว */
 body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
@@ -63,13 +64,21 @@ table {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    table-layout: fixed; /* กำหนดให้ตารางมีความกว้างคงที่ */
+    table-layout: fixed;
 }
 
 th {
-    background-color: #27474e; /* สีเขียว */
-    color: white; /* สีของข้อความใน th */
+    background-color: #27474e;
+    color: white;
 }
+
+/* เสริมเพื่อจัดการข้อความที่ยาวเกิน */
+/* td {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+} */
 
 th, td {
     padding: 15px;
@@ -77,9 +86,9 @@ th, td {
     border-bottom: 1px solid #ddd;
     word-wrap: break-word;
     word-break: break-all;
-    white-space: nowrap; /* ป้องกันไม่ให้ข้อความขึ้นบรรทัดใหม่ */
-    overflow: hidden; /* ซ่อนข้อความที่เกินขอบเขต */
-    text-overflow: ellipsis; /* แสดง "..." สำหรับข้อความที่เกิน */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .actions {
@@ -113,7 +122,7 @@ h2 {
     color: #27474e;
 }
 
-/* Media Queries สำหรับหน้าจอขนาดเล็ก */
+/* Media Queries */
 @media (max-width: 768px) {
     .container {
         padding: 10px;
