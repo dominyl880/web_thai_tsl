@@ -1,0 +1,268 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    background-color: #27474e;
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-sizing: border-box;
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.search-bar {
+    background-color: white;
+    padding: 8px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    width: 300px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.auth-links {
+    font-size: 18px;
+}
+
+.form-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 20px;
+    width: 80%;
+    max-width: 500px;
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.header-underline {
+    width: 50%;
+    border: none;
+    border-top: 2px solid #f6d365;
+    margin: 0 auto 20px auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.form-group .required {
+    color: red;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    background-color: #f2f2f2;
+    box-sizing: border-box;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+    background-color: #27474e;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn-submit:hover {
+    background-color: #1e373e;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login-link a {
+    color: #27474e;
+    text-decoration: none;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 20px;
+}
+
+.card {
+    background-color: #27474e;
+    color: white;
+    padding: 20px;
+    border-radius: 50px;
+    text-align: center;
+    width: 250px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.card i {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: #f6d365;
+}
+
+.card p {
+    margin: 0;
+    font-size: 18px;
+    color: #f6d365;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .card {
+        width: 200px;
+        height: 100px;
+    }
+
+    header {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .search-bar {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .auth-links {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 150px;
+        height: 80px;
+    }
+
+    .card i {
+        font-size: 24px;
+    }
+
+    .card p {
+        font-size: 16px;
+    }
+
+    header {
+        padding: 10px 0;
+    }
+
+    .search-bar {
+        padding: 6px;
+    }
+}
+
+.form-group.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -10px; /* ปรับระยะห่างด้านบนตามความต้องการ */
+}
+
+.form-group.remember-forgot div {
+    display: flex;
+    align-items: center;
+    white-space: nowrap; /* ป้องกันการตัดบรรทัด */
+}
+
+.form-group.remember-forgot .forgot-password {
+    margin-top: 0;
+    color: #5e88fc;
+    text-decoration: none;
+}
+
+.search-bar {
+    background-color: white;
+    padding: 8px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    width: 300px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.search-bar i {
+    color: #27474e;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.no-underline {
+    text-decoration: none;
+    color: inherit; /* ใช้สีฟอนต์เดิม */
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease; /* เพิ่มความนุ่มนวลในการเปลี่ยนสี */
+}
+
+.no-underline:hover {
+    color: white;
+    background-color: #FFA500; /* สีส้ม */
+    text-decoration: none;
+    border-radius: 15px; /* ขอบมน */
+}
+
+
+/* ส่วนของ CSS สำหรับหน้าจอคอมพิวเตอร์ */
+@media (min-width: 1024px) {
+    .left-section,
+    .right-section {
+        height: 580px; /* กำหนดความสูงของทั้งสองด้านเป็น 800px */
+        overflow-y: auto; /* เพิ่มการเลื่อนเนื้อหาหากเกิน 800px */
+    }
+}

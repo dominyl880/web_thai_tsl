@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ</title>
+    <link rel="icon" href="image/logo/logo.png" type="image/png"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header>
+    <div class="logo"><a href="index.html" class="no-underline"><i class="fas fa-home"></i> หน้าหลัก</a></div>   
+    <div class="auth-links">
+        <span><a href="register.html" class="no-underline">สมัครสมาชิก</a></span>
+    </div>
+</header>
+
+<div class="form-container">
+    <h2>เข้าสู่ระบบ</h2>
+    <hr class="header-underline">
+    <form>
+        <div class="form-group">
+            <label for="email">อีเมล <span class="required">*</span></label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">รหัสผ่าน <span class="required">*</span></label>
+            <input type="password" id="password" name="password" required>
+        </div><br>
+        <div class="form-group remember-forgot">
+            <div>
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">จดจำฉันไว้</label>
+            </div>
+            <a href="#" class="forgot-password">ลืมรหัสผ่าน?</a>
+        </div>
+        <button type="submit" class="btn-submit">เข้าสู่ระบบ</button>
+    </form>    
+    <div class="login-link">
+        ยังไม่มีบัญชี? <a href="register.html">สมัครสมาชิก</a>
+    </div>
+</div>
+
+</body>
+</html>
