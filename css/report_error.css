@@ -41,6 +41,26 @@ label {
     margin-bottom: 10px;
 }
 
+.back-button {
+    position: fixed;
+    top: 70px;
+    left: 15px;
+    z-index: 1001;
+}
+
+.back-button a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #27474e;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 24px;
+    text-decoration: none;
+}
 
 textarea {
     width: 95%;
