@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตั้งค่า</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/settings.css">
+</head>
+<body>
+
+<header>
+    <div class="logo"><a href="index.html" class="no-underline"><i class="fas fa-home"></i> หน้าหลัก</a></div>
+    <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="ค้นหา" id="search-input" value="">
+    </div>
+    <div class="auth-links">
+        <a href="settings.html" class="no-underline"><i class="fas fa-cog"></i> ตั้งค่า</a>
+    </div>
+</header>
+
+<!-- JavaScript -->
+<script src="js/search.js"></script>
+
+<div class="container">
+    <button class="profile-button">จัดการข้อมูลส่วนตัว</button>
+    <h3>เลือกโมเดลท่าทาง</h3>
+    <div class="model-selection">
+        <label>
+            <img src="image/gif/kaguya-sama-love-is-war-anime.gif" alt="Model 1">
+            <input type="radio" name="model" value="model1">
+        </label>
+        <label>
+            <img src="image/gif/mai-sakurajima-mai.gif" alt="Model 2">
+            <input type="radio" name="model" value="model2">
+        </label>
+        <label>
+            <img src="image/gif/wink-anime.gif" alt="Model 3">
+            <input type="radio" name="model" value="model3">
+        </label>
+    </div>
+
+    <h3>ตั้งค่าเสียงพูด</h3>
+    <div class="voice-settings">
+        <label>
+            <input type="radio" name="voice" value="male"> ชาย
+        </label>
+        <label>
+            <input type="radio" name="voice" value="female"> หญิง
+        </label>
+    </div>
+
+    <h3>ถนัดมือ</h3>
+    <div class="hand-settings">
+        <label>
+            <input type="radio" name="hand" value="right"> ขวา
+        </label>
+        <label>
+            <input type="radio" name="hand" value="left"> ซ้าย
+        </label>
+    </div>
+
+    <div class="action-buttons">
+        <button class="delete-button">ลบบัญชี</button>
+        <button class="logout-button"><i class="fas fa-sign-out-alt"></i> ออกจากระบบ</button>
+    </div>
+    <button class="save-button">บันทึกการตั้งค่า</button>
+</div>
+
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
