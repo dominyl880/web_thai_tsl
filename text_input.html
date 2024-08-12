@@ -8,6 +8,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/text_input_styles.css">
+    <style>
+        /* Add this style to highlight the spoken word */
+        .highlighted {
+            color: red;
+            font-weight: bold;
+        }
+        .message-display {
+            white-space: pre-wrap;
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 100px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 1.2em;
+            line-height: 1.5em;
+        }
+    </style>
 </head>
 <body>
 
@@ -25,7 +42,6 @@
 <!-- ลิงก์ไปยังไฟล์ JavaScript แยกต่างหาก -->
 <script src="js/search.js"></script>
 
-
 <div class="container">
     <div class="left-section">
         <div class="back-button">
@@ -35,7 +51,8 @@
             <a href="#" class="favorite-link"><i class="fas fa-star"></i> บันทึกรายการโปรด</a>
         </div>
         <div class="message-box">
-            <textarea placeholder="พิมพ์ข้อความที่นี่..." rows="20" cols="50"></textarea>
+            <textarea id="text-input" placeholder="พิมพ์ข้อความที่นี่..." rows="5" cols="50"></textarea>
+            <div id="highlighted-text" class="message-display"></div>
         </div>
     </div>
     <div class="right-section">
@@ -46,12 +63,59 @@
             <div class="report-button">
                 <a href="#"><i class="fas fa-exclamation-circle"></i></a>
             </div>
-            <div class="mic-button">
+            <div class="mic-button" id="speak-button">
                 <i class="fas fa-volume-up"></i> กดเพื่อฟัง
             </div>
         </div>
     </div>
 </div>
+
+<!-- Script for Text-to-Speech with Button Color Change and Word Highlighting -->
+<script>
+    const speakButton = document.getElementById('speak-button');
+    const textInput = document.getElementById('text-input');
+    const highlightedTextDiv = document.getElementById('highlighted-text');
+
+    speakButton.addEventListener('click', () => {
+        const text = textInput.value.trim();
+        if (text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'th-TH'; // Set the language to Thai
+
+            const words = text.split(' ');
+            let currentIndex = 0;
+
+            utterance.onboundary = (event) => {
+                const charIndex = event.charIndex;
+                let highlightedText = '';
+
+                words.forEach((word, index) => {
+                    if (charIndex >= currentIndex && charIndex < currentIndex + word.length) {
+                        highlightedText += `<span class="highlighted">${word}</span> `;
+                    } else {
+                        highlightedText += `${word} `;
+                    }
+                    currentIndex += word.length + 1;
+                });
+
+                highlightedTextDiv.innerHTML = highlightedText.trim();
+            };
+
+            utterance.onstart = () => {
+                speakButton.style.backgroundColor = 'red';
+            };
+
+            utterance.onend = () => {
+                speakButton.style.backgroundColor = '';
+                highlightedTextDiv.innerHTML = text; // Reset to original text without highlighting
+            };
+
+            speechSynthesis.speak(utterance);
+        } else {
+            alert('กรุณาพิมพ์ข้อความที่ต้องการให้พูด');
+        }
+    });
+</script>
 
 </body>
 </html>

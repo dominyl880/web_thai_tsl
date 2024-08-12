@@ -25,7 +25,6 @@
 <!-- ลิงก์ไปยังไฟล์ JavaScript แยกต่างหาก -->
 <script src="js/search.js"></script>
 
-
 <div class="container">
     <div class="left-section">
         <div class="back-button">
@@ -34,55 +33,8 @@
         <div class="favorite-box">
             <a href="#" class="favorite-link"><i class="fas fa-star"></i> บันทึกรายการโปรด</a>
         </div>
-        <div class="message-box">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae nesciunt quasi, 
-                <span class="highlight">ฉันไปโรงเรียน</span>
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur. commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur. commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur. commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur. commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur. commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur. commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur. commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur. commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-                commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur. commodi nihil eum, labore atque nisi maiores similique officiis explicabo accusamus 
-                natus ab illum temporibus ut odio reiciendis consequuntur.
-            </p>
+        <div class="message-box" id="message-box">
+            <p>กรุณาพูดคำที่ต้องการค้นหา</p>
         </div>
     </div>
     <div class="right-section">
@@ -93,12 +45,67 @@
             <div class="report-button">
                 <a href="#"><i class="fas fa-exclamation-circle"></i></a>
             </div>
-            <div class="mic-button">
+            <div class="mic-button" id="mic-button">
                 <i class="fas fa-microphone"></i> กดเพื่อพูด
             </div>
         </div>
     </div>
 </div>
+
+<!-- Script for Speech Recognition -->
+<script>
+    const micButton = document.getElementById('mic-button');
+    const messageBox = document.getElementById('message-box');
+    
+    // Check for browser support
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'th-TH';
+
+        micButton.addEventListener('click', () => {
+            micButton.style.backgroundColor = 'red'; // Change button color to red when recording starts
+            recognition.start();
+        });
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            messageBox.innerHTML = `<p>${transcript}</p>`;
+            micButton.style.backgroundColor = ''; // Reset button color when recording stops
+            sendToBackend(transcript);
+        };
+
+        recognition.onend = () => {
+            micButton.style.backgroundColor = ''; // Reset button color when recognition ends
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+            micButton.style.backgroundColor = ''; // Reset button color if there's an error
+        };
+    } else {
+        alert('Speech Recognition API not supported in this browser.');
+    }
+
+    // Function to send the recognized text to the backend
+    function sendToBackend(transcript) {
+        fetch('/process_audio', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ sentence: transcript })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Processed data:', data);
+            // Display the processed video sequence or handle as needed
+        })
+        .catch(error => {
+            console.error('Error processing audio:', error);
+        });
+    }
+</script>
 
 </body>
 </html>
