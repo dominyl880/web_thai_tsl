@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ฟังก์ชั่นรับข้อความและเล่นวิดีโอ</title>
+    <title>ฟังก์ชั่นรับข้อความ</title>
     <link rel="icon" href="image/logo/logo.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/text_input_styles.css">
     <style>
+        /* Add this style to highlight the spoken word */
         .highlighted {
             color: red;
             font-weight: bold;
@@ -22,54 +23,6 @@
             box-sizing: border-box;
             font-size: 1.2em;
             line-height: 1.5em;
-        }
-
-        #combinedVideo {
-            width: 400px;
-            height: 400px;
-            display: block;
-            margin: 20px auto;
-        }
-
-        .container {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-        }
-
-        .left-section, .right-section {
-            width: 45%;
-        }
-
-        .bottom-actions {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .mic-button {
-            background-color: #27474e;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-
-        .mic-button:hover {
-            background-color: #27474e;
-        }
-
-        .character-placeholder {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #currentWord {
-            font-size: 1.2em;
-            margin-top: 10px;
-            font-weight: bold;
         }
     </style>
 </head>
@@ -98,28 +51,71 @@
             <a href="#" class="favorite-link"><i class="fas fa-star"></i> บันทึกรายการโปรด</a>
         </div>
         <div class="message-box">
-            <textarea id="sentenceInput" placeholder="พิมพ์ข้อความที่นี่..." rows="5" cols="50"></textarea>
+            <textarea id="text-input" placeholder="พิมพ์ข้อความที่นี่..." rows="5" cols="50"></textarea>
             <div id="highlighted-text" class="message-display"></div>
         </div>
     </div>
     <div class="right-section">
         <div class="character-placeholder">
-            <video id="combinedVideo" controls></video>
-            <p id="currentWord"></p>
+            <img src="image/gif/wink-anime.gif" alt="Image">
         </div>
         <div class="bottom-actions">
             <div class="report-button">
                 <a href="#"><i class="fas fa-exclamation-circle"></i></a>
             </div>
-            <div class="mic-button" id="play-button">
-                <i class="fas fa-play"></i> กดเพื่อเล่นเสียงและวิดีโอ
+            <div class="mic-button" id="speak-button">
+                <i class="fas fa-volume-up"></i> กดเพื่อฟัง
             </div>
         </div>
     </div>
 </div>
 
-<!-- Script for running both Text-to-Speech and videos -->
-<script src="js/test.js"></script>
+<!-- Script for Text-to-Speech with Button Color Change and Word Highlighting -->
+<script>
+    const speakButton = document.getElementById('speak-button');
+    const textInput = document.getElementById('text-input');
+    const highlightedTextDiv = document.getElementById('highlighted-text');
+
+    speakButton.addEventListener('click', () => {
+        const text = textInput.value.trim();
+        if (text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'th-TH'; // Set the language to Thai
+
+            const words = text.split(' ');
+            let currentIndex = 0;
+
+            utterance.onboundary = (event) => {
+                const charIndex = event.charIndex;
+                let highlightedText = '';
+
+                words.forEach((word, index) => {
+                    if (charIndex >= currentIndex && charIndex < currentIndex + word.length) {
+                        highlightedText += `<span class="highlighted">${word}</span> `;
+                    } else {
+                        highlightedText += `${word} `;
+                    }
+                    currentIndex += word.length + 1;
+                });
+
+                highlightedTextDiv.innerHTML = highlightedText.trim();
+            };
+
+            utterance.onstart = () => {
+                speakButton.style.backgroundColor = 'red';
+            };
+
+            utterance.onend = () => {
+                speakButton.style.backgroundColor = '';
+                highlightedTextDiv.innerHTML = text; // Reset to original text without highlighting
+            };
+
+            speechSynthesis.speak(utterance);
+        } else {
+            alert('กรุณาพิมพ์ข้อความที่ต้องการให้พูด');
+        }
+    });
+</script>
 
 </body>
 </html>

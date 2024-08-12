@@ -1,111 +1,190 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ฟังก์ชั่นรับเสียง</title>
-    <link rel="icon" href="image/logo/logo.png" type="image/png"> 
+    <link rel="icon" href="image/logo/logo.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/voice_function_styles.css">
-</head>    
+    <style>
+        .highlighted {
+            color: red;
+            font-weight: bold;
+        }
+
+        .message-display {
+            white-space: pre-wrap;
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 100px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 1.2em;
+            line-height: 1.5em;
+        }
+
+        #combinedVideo {
+            width: 400px;
+            height: 400px;
+            display: block;
+            margin: 20px auto;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .left-section,
+        .right-section {
+            width: 45%;
+        }
+
+        .bottom-actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .mic-button {
+            background-color: #27474e;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .mic-button:hover {
+            background-color: #27474e;
+        }
+
+        .character-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #currentWord {
+            font-size: 1.2em;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
 <body>
 
-<header>
-    <div class="logo"><a href="index.html" class="no-underline"><i class="fas fa-home"></i> หน้าหลัก</a></div>
-    <div class="search-bar">
-        <i class="fas fa-search"></i>
-        <input type="text" placeholder="ค้นหา" id="search-input">
-    </div>
-    <div class="header-icons">
-        <a href="text_input.html" class="no-underline"><i class="fas fa-keyboard"></i> พิมพ์เพื่อสนทนา</a>
-        <a href="settings.html" class="no-underline"><i class="fas fa-cog"></i> ตั้งค่า</a>
-    </div>
-</header>
-<!-- ลิงก์ไปยังไฟล์ JavaScript แยกต่างหาก -->
-<script src="js/search.js"></script>
+    <header>
+        <div class="logo"><a href="index.html" class="no-underline"><i class="fas fa-home"></i> หน้าหลัก</a></div>
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="ค้นหา" id="search-input">
+        </div>
+        <div class="header-icons">
+            <a href="text_input.html" class="no-underline"><i class="fas fa-keyboard"></i> พิมพ์เพื่อสนทนา</a>
+            <a href="settings.html" class="no-underline"><i class="fas fa-cog"></i> ตั้งค่า</a>
+        </div>
+    </header>
+    <!-- ลิงก์ไปยังไฟล์ JavaScript แยกต่างหาก -->
+    <script src="js/search.js"></script>
 
-<div class="container">
-    <div class="left-section">
-        <div class="back-button">
-            <a href="index.html"><i class="fas fa-arrow-left"></i></a>
-        </div>
-        <div class="favorite-box">
-            <a href="#" class="favorite-link"><i class="fas fa-star"></i> บันทึกรายการโปรด</a>
-        </div>
-        <div class="message-box" id="message-box">
-            <p>กรุณาพูดคำที่ต้องการค้นหา</p>
-        </div>
-    </div>
-    <div class="right-section">
-        <div class="character-placeholder">
-            <img src="image/gif/kaguya-sama-love-is-war-anime.gif" alt="Image">
-        </div>        
-        <div class="bottom-actions">
-            <div class="report-button">
-                <a href="#"><i class="fas fa-exclamation-circle"></i></a>
+    <div class="container">
+        <div class="left-section">
+            <div class="back-button">
+                <a href="index.html"><i class="fas fa-arrow-left"></i></a>
             </div>
-            <div class="mic-button" id="mic-button">
-                <i class="fas fa-microphone"></i> กดเพื่อพูด
+            <div class="favorite-box">
+                <a href="#" class="favorite-link"><i class="fas fa-star"></i> บันทึกรายการโปรด</a>
+            </div>
+            <div class="message-box" id="message-box">
+                <p>กรุณาพูดคำที่ต้องการค้นหา</p>
             </div>
         </div>
+        <div class="right-section">
+            <div class="character-placeholder">
+                <video id="combinedVideo" controls></video>
+                <p id="currentWord"></p>
+            </div>
+            <div class="bottom-actions">
+                <div class="report-button">
+                    <a href="#"><i class="fas fa-exclamation-circle"></i></a>
+                </div>
+                <div class="mic-button" id="mic-button">
+                    <i class="fas fa-microphone"></i> กดเพื่อพูด
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
-<!-- Script for Speech Recognition -->
-<script>
-    const micButton = document.getElementById('mic-button');
-    const messageBox = document.getElementById('message-box');
-    
-    // Check for browser support
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SpeechRecognition) {
-        const recognition = new SpeechRecognition();
-        recognition.lang = 'th-TH';
+    <!-- Script for Speech Recognition and Playing Videos -->
+    <script src="js/test.js"></script>
+    <script>
+        const micButton = document.getElementById('mic-button');
+        const messageBox = document.getElementById('message-box');
+        const videoElement = document.getElementById('combinedVideo');
 
-        micButton.addEventListener('click', () => {
-            micButton.style.backgroundColor = 'red'; // Change button color to red when recording starts
-            recognition.start();
-        });
+        // Check for browser support
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'th-TH';
 
-        recognition.onresult = (event) => {
-            const transcript = event.results[0][0].transcript;
-            messageBox.innerHTML = `<p>${transcript}</p>`;
-            micButton.style.backgroundColor = ''; // Reset button color when recording stops
-            sendToBackend(transcript);
-        };
+            micButton.addEventListener('click', () => {
+                micButton.style.backgroundColor = 'red'; // Change button color to red when recording starts
+                recognition.start();
+            });
 
-        recognition.onend = () => {
-            micButton.style.backgroundColor = ''; // Reset button color when recognition ends
-        };
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                messageBox.innerHTML = `<p>${transcript}</p>`;
+                micButton.style.backgroundColor = ''; // Reset button color when recording stops
+                handleSpeechResult(transcript);
+            };
 
-        recognition.onerror = (event) => {
-            console.error('Speech recognition error:', event.error);
-            micButton.style.backgroundColor = ''; // Reset button color if there's an error
-        };
-    } else {
-        alert('Speech Recognition API not supported in this browser.');
-    }
+            recognition.onend = () => {
+                micButton.style.backgroundColor = ''; // Reset button color when recognition ends
+            };
 
-    // Function to send the recognized text to the backend
-    function sendToBackend(transcript) {
-        fetch('/process_audio', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ sentence: transcript })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Processed data:', data);
-            // Display the processed video sequence or handle as needed
-        })
-        .catch(error => {
-            console.error('Error processing audio:', error);
-        });
-    }
-</script>
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                micButton.style.backgroundColor = ''; // Reset button color if there's an error
+            };
+        } else {
+            alert('Speech Recognition API not supported in this browser.');
+        }
+
+        function handleSpeechResult(transcript) {
+            const { videoSequence, words } = generateVideoSequence(transcript);
+
+            playVideosInSingleElement(videoSequence, words);
+        }
+
+        function playVideosInSingleElement(videoSequence, words) {
+            let currentVideoIndex = 0;
+
+            function playNextVideo() {
+                if (currentVideoIndex < videoSequence.length) {
+                    videoElement.src = `videos/${videoSequence[currentVideoIndex]}`;
+                    document.getElementById('currentWord').textContent = `${words[currentVideoIndex]}`;
+                    videoElement.play();
+                    currentVideoIndex++;
+                }
+            }
+
+            videoElement.addEventListener('ended', playNextVideo);
+
+            // Start the video sequence
+            if (videoSequence.length > 0) {
+                playNextVideo();
+            }
+        }
+    </script>
 
 </body>
+
 </html>
